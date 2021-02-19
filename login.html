@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -67,7 +67,8 @@
 			<option>SPORTS & LEISURE </option>
 			<option>BOOKS & ENTERTAINMENTS </option>
 		</select> 
-		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+		  <button type="submit" id="submitButton" class="btn btn-primary" >Go</button>
+			
     </form>
     <ul id="topMenu" class="nav pull-right">
 	 <li class=""><a href="special_offer.html">Specials Offer</a></li>
@@ -77,7 +78,7 @@
 	 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
 	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
 		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">ï¿½</button>
 			<h3>Login Block</h3>
 		  </div>
 		  <div class="modal-body">
@@ -200,7 +201,7 @@
 		<div class="span4">
 			<div class="well">
 			<h5>ALREADY REGISTERED ?</h5>
-			<form>
+            <form></form>
 			  <div class="control-group">
 				<label class="control-label" for="inputEmail1">Email</label>
 				<div class="controls">
@@ -214,11 +215,40 @@
 				</div>
 			  </div>
 			  <div class="control-group">
-				<div class="controls">
-				  <button type="submit" class="btn">Sign in</button> <a href="forgetpass.html">Forget password?</a>
-				</div>
+				  <div class="controls">
+				  	<button type="submit" class="btn" onclick="validate()">Sign in</button> <a href="forgetpass.html">Forget password?</a>
+
+				  	<script type="text/javascript">
+				  function validate() {
+					  var userid = document.getElementById('inputEmail1').value;
+					  var pwd = document.getElementById('inputPassword1').value;
+
+                            $.ajax({
+                                type: "POST",
+                                url: "Service.asmx/login_validate",
+                                cache: false,
+                                contentType: "application/json; charset=utf-8",
+                                data: '{"userid":"'+ $('[id$=inputEmail1]').val() + '","pwd":"' + $('[id$=inputPassword1]').val() + '"}',
+                                dataType: "json",
+                                success: handleHtml,
+                                error: ajaxFailed
+							});
+
+					  function handleHtml(data, status) {
+                          alert(data.d);
+                          
+                      }
+
+					  function ajaxFailed(xmlRequest) {
+                          alert(data.d);
+                          
+                      }
+						
+				  }
+				  	</script>
+				  </div>
 			  </div>
-			</form>
+			
 		</div>
 		</div>
 	</div>	
